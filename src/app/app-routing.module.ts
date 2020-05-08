@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CustomersListComponent } from './customers/customers-list/customers-list.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
+import { LogInComponent } from './components/log-in/log-in.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
   { path: 'customers', component: CustomersListComponent },
-  { path: 'add', component: CreateCustomerComponent }
+  { path: 'add', component: CreateCustomerComponent },
+  { path: 'login', component: LogInComponent },
+  { path: 'dashboard', component: DashboardComponent }
 ];
 
 @NgModule({
