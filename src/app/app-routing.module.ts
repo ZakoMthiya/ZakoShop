@@ -4,6 +4,8 @@ import { CustomersListComponent } from './customers/customers-list/customers-lis
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 
 
 const routes: Routes = [
@@ -11,7 +13,9 @@ const routes: Routes = [
   { path: 'customers', component: CustomersListComponent },
   { path: 'add', component: CreateCustomerComponent },
   { path: 'login', component: LogInComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'admin/products', component: AdminProductsComponent },
+  { path: 'admin/products/new', component: ProductFormComponent }
 ];
 
 @NgModule({

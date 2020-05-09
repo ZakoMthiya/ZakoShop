@@ -14,6 +14,10 @@ import { CreateCustomerComponent } from './customers/create-customer/create-cust
 import { FormsModule } from '@angular/forms';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { AuthService } from './shared/auth.service';
+import { CategoryService } from './category.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     CustomersListComponent,
     CreateCustomerComponent,
     LogInComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductFormComponent,
+    AdminProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +38,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AngularFireAuthModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    CategoryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
