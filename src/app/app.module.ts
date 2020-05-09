@@ -11,13 +11,14 @@ import { environment } from 'src/environments/environment';
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 import { CustomersListComponent } from './customers/customers-list/customers-list.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AuthService } from './shared/auth.service';
 import { CategoryService } from './category.service';
+import { ProductService } from './product.service';
 
 @NgModule({
   declarations: [
@@ -36,11 +37,13 @@ import { CategoryService } from './category.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

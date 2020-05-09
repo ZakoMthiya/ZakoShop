@@ -1,33 +1,66 @@
-<form action="">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input id="title" type="text" class="form-control">
-  </div>
+<div class="row">
+  <div class="col-6">
+    <form #f="ngForm" (ngSubmit)="save(f.value)">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input required #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control">
+        <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+          Title is required
+        </div>
+      </div>
 
-  <label for="price">Price</label>
-  <div class="form-group input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text">R</span>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">R</span>
+          </div>
+          <input required #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="text" class="form-control">
+        </div>
+        <div *ngIf="price.touched && price.invalid" class="alert alert-danger">
+          Price is required
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select required #category="ngModel" [(ngModel)]="product.category" name="category" id="category" type="text" class="form-control">
+          <option value="">-- Please select a category --</option>
+          <option *ngFor="let c of categories$ | async" [value]="c.id">
+            {{ c.name }}
+          </option>
+        </select>
+        <div *ngIf="category.touched && category.invalid" class="alert alert-danger">
+          Category is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="imageUrl">Image Url</label>
+        <input required #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" id="imageUrl" type="text" class="form-control">
+        <div *ngIf="imageUrl.touched && imageUrl.invalid" class="alert alert-danger">
+          Image Url is required
+        </div>
+      </div>
+
+      <button class="btn btn-primary">
+        Save
+      </button>
+      <button type="button" (click)="delete()" class="btn btn-danger">
+        Delete
+      </button>
+    </form>
+  </div>
+  <div class="col-6">
+    <div class="card" style="width: 30rem;">
+      <img [src]="product.imageUrl" class="card-img-top" *ngIf="product.imageUrl">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">{{ product.price | currency:'ZAR':"symbol" }}</p>
+      </div>
     </div>
-    <input id="price" type="text" class="form-control">
-
   </div>
+</div>
 
-  <div class="form-group">
-    <label for="category">Category</label>
-    <select id="category" type="text" class="form-control">
-      <option value="">-- Please select a category --</option>
-      <option *ngFor="let c of categories$ | async" [value]="c.key">
-        {{ c.name }}
-      </option>
-    </select>
-  </div>
 
-  <div class="form-group">
-    <label for="imageUrl">Image Url</label>
-    <input id="imageUrl" type="text" class="form-control">
-  </div>
-  <button class="btn btn-primary">
-    Save
-  </button>
-</form>
