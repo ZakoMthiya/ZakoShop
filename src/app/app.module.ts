@@ -19,6 +19,15 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AuthService } from './shared/auth.service';
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
+import { HomeComponent } from './home/home.component';
+import { ProductsComponent } from './products/products.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +38,16 @@ import { ProductService } from './product.service';
     LogInComponent,
     DashboardComponent,
     ProductFormComponent,
-    AdminProductsComponent
+    AdminProductsComponent,
+    HomeComponent,
+    ProductsComponent,
+    ShoppingCartComponent,
+    CheckOutComponent,
+    OrderSuccessComponent,
+    MyOrdersComponent,
+    AdminOrdersComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,

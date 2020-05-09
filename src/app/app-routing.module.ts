@@ -6,10 +6,11 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { ProductsComponent } from './products/products.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'customers', pathMatch: 'full' },
+  { path: '', component: ProductsComponent },
   { path: 'customers', component: CustomersListComponent },
   { path: 'add', component: CreateCustomerComponent },
   { path: 'login', component: LogInComponent },
