@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -29,6 +30,7 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ShoppingCartService } from './shopping-cart.service';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { ShoppingCartService } from './shopping-cart.service';
     MyOrdersComponent,
     AdminOrdersComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { ShoppingCartService } from './shopping-cart.service';
     AngularFirestoreModule,
     AngularFireAuthModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     AuthService,
