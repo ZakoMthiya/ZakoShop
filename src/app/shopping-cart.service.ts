@@ -13,7 +13,7 @@ export class ShoppingCartService {
 
   private dbPath = '/shopping-carts';
 
-  cartRef: AngularFirestoreCollection<ShoppingCart> = null;
+  cartRef = null;
 
   constructor(private db: AngularFirestore) {
     this.cartRef = db.collection(this.dbPath);
@@ -21,7 +21,6 @@ export class ShoppingCartService {
 
   private createCart() {
     return this.cartRef.add({
-      items: null,
       dateCreated: new Date().getTime()
     })
   }
@@ -40,9 +39,6 @@ export class ShoppingCartService {
   }
 
   async addToCart(product: Product) {
-    //
-    let r;
-    // Exp
 
     console.log(product.id);
     let cartId = await this.getOrCreateCartId();
@@ -66,6 +62,27 @@ export class ShoppingCartService {
     })
   }
 
+  async removeFromCart(product: Product) {
+
+    console.log(product.id);
+    let cartId = await this.getOrCreateCartId();
+    console.log(cartId);
+
+    let item$ = this.db.doc('shopping-carts/' + cartId + '/items/' + product.id).get()
+    console.log(item$);
+
+    item$.pipe(take(1)).subscribe(item => {
+      if (item.exists) {
+        let quantity = item.get('quantity');
+        item.ref.set({ product: product, quantity: quantity - 1 });
+        console.log(quantity);
+        console.log(item$);
+      }
+      else {
+        console.log('This will never get triggered');
+      }
+    })
+  }
 
   // Experiments
   // This returns an array of all the items in the cart

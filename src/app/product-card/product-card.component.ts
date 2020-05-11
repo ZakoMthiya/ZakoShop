@@ -18,10 +18,12 @@ export class ProductCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    // this.cartService.getDoc(product);
+  addToCart() {
+    this.cartService.addToCart(this.product);
+  }
 
+  removeFromCart() {
+    this.cartService.removeFromCart(this.product)
   }
 
   getQuantity() {
@@ -46,7 +48,7 @@ export class ProductCardComponent implements OnInit {
     // Works up to this point in time
 
     let secondArray = [];
-    console.log(item);
+    // console.log(item);
     let temp = newArray.find(x => {
       console.log('Inside temp method')
       if(x.product.id === this.product.id) {
