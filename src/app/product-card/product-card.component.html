@@ -9,4 +9,7 @@
     (click)="addToCart(product)"
     *ngIf="showActions" class="btn btn-primary btn-block">Add to Cart </button>
   </div>
+  <div>
+    {{ getQuantity() }}
+  </div>
 </div>

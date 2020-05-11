@@ -1,3 +1,4 @@
 export class ShoppingCart {
-dateCreated;
-  }
+  items;
+  dateCreated;
+}

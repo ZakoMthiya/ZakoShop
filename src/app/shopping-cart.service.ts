@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ShoppingCart } from './models/shopping-cart';
 import { async } from '@angular/core/testing';
 import { Product } from './models/product';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,7 @@ export class ShoppingCartService {
 
   private createCart() {
     return this.cartRef.add({
+      items: null,
       dateCreated: new Date().getTime()
     })
   }
@@ -31,14 +32,18 @@ export class ShoppingCartService {
 
   private async getOrCreateCartId() {
     let cartId = localStorage.getItem('cartId');
-    if(cartId) return cartId;
+    if (cartId) return cartId;
 
-      let result = await this.createCart();
-      localStorage.setItem('cartId', result.id);
-      return result.id;
+    let result = await this.createCart();
+    localStorage.setItem('cartId', result.id);
+    return result.id;
   }
 
   async addToCart(product: Product) {
+    //
+    let r;
+    // Exp
+
     console.log(product.id);
     let cartId = await this.getOrCreateCartId();
     console.log(cartId);
@@ -47,17 +52,27 @@ export class ShoppingCartService {
     console.log(item$);
 
     item$.pipe(take(1)).subscribe(item => {
-      if(item.exists) {
+      if (item.exists) {
         let quantity = item.get('quantity');
-        item.ref.update({ quantity: quantity + 1});
+        item.ref.set({ product: product, quantity: quantity + 1 });
         console.log(quantity);
         console.log(item$);
       }
       else {
-        item.ref.set({ product: product, quantity: 1})
+        item.ref.set({ product: product, quantity: 1 })
         console.log('Tried setting');
         console.log(item)
       }
     })
   }
+
+
+  // Experiments
+  // This returns an array of all the items in the cart
+  async getCarti() {
+    let cartId = await this.getOrCreateCartId();
+    console.log('Got the cart Id');
+    return this.db.collection('/shopping-carts/' + cartId + '/items/');
+  }
+
 }
