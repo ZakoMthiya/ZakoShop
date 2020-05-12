@@ -15,13 +15,13 @@
     <tbody>
       <tr *ngFor="let item of itemsArray">
         <td >
-          {{ item.title }}
+          {{ item.product.title }}
         </td>
         <td>
-          {{ item.id }}
+          {{ item.quantity }}
         </td>
         <td>
-          {{ item.price | currency:'ZAR':"symbol"}}
+          {{ item.product.price | currency:'ZAR':"symbol"}}
         </td>
       </tr>
     </tbody>
