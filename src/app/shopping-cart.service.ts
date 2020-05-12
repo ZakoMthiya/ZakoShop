@@ -85,10 +85,18 @@ export class ShoppingCartService {
   }
 
   // Experiments
+  getCartId() {
+    let cartId = localStorage.getItem('cartId');
+    if (cartId) return cartId;
+  }
+
   // This returns an array of all the items in the cart
-  async getCarti() {
-    let cartId = await this.getOrCreateCartId();
-    console.log('Got the cart Id');
+  getCarti() {
+    let cartId = this.getCartId();
+    if(!cartId) {
+      console.log('Failed to get cartId in service')
+    }
+    console.log('Got the cart Id in service');
     return this.db.collection('/shopping-carts/' + cartId + '/items/');
   }
 
