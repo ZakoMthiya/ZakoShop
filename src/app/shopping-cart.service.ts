@@ -100,4 +100,31 @@ export class ShoppingCartService {
     return this.db.collection('/shopping-carts/' + cartId + '/items/');
   }
 
+  clearCart(id: string[]) {
+    let cartId = this.getCartId();
+    let cart = this.db.collection('/shopping-carts/' + cartId  + '/items/');
+    // Works
+    //cart.doc('4edDXZtdJrtWqhTPQ9VS').delete()
+    //console.log('Attempt')
+    // let ic = ['4edDXZtdJrtWqhTPQ9VS', '5tFTj2TlIMqKNHKLTk1U']
+    id.forEach(x => {
+      cart.doc(x).delete();
+    })
+  }
+
+  removeProduct(id: string) {
+    let cartId = this.getCartId();
+    let cart = this.db.collection('/shopping-carts/' + cartId  + '/items/');
+
+    cart.doc(id).delete();
+  }
 }
+
+// Seems to be working ovetime. Always deleting
+
+// cart.ref.onSnapshot(x => {
+//   console.log(x)
+//   x.docs.forEach(i => {
+//     i.ref.delete();
+//   })
+// })

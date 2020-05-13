@@ -18,14 +18,53 @@
           {{ item.product.title }}
         </td>
         <td>
-          {{ item.quantity }}
+          <!-- {{ item.quantity }} -->
+          <!--  <div class="row no-gutters"> -->
+
+            <div *ngIf="item.quantity > 1; else noRemoveTask" class="col">
+              <button (click)="removeFromCart(item.product)" class="btn btn-danger btn-block">-</button>
+            </div>
+            <ng-template #noRemoveTask>
+              <div class="col">
+                <button (click)="removeProductFromCart(item.product.id)" class="btn btn-danger btn-block">-</button>
+              </div>
+            </ng-template>
+            <div class="col text-center">
+              {{ item.quantity }}
+            </div>
+            <div *ngIf="item.quantity < 5; else noAddTask" class="col">
+              <button (click)="addToCart(item.product)" class="btn btn-success btn-block">+</button>
+            </div>
+            <ng-template #noAddTask>
+              <div class="col">
+                <button class="btn btn-success disabled btn-block">-</button>
+              </div>
+            </ng-template>
+          <!-- </div> -->
         </td>
         <td>
-          {{ item.product.price | currency:'ZAR':"symbol"}}
+          {{ item.product.price * item.quantity | currency:'ZAR':"symbol" }}
         </td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Total</th>
+        <th> {{ getTotalPrice() | currency:'ZAR':"symbol" }}</th>
+      </tr>
+    </tfoot>
   </table>
+  <button
+  (click)="clearCart()"
+  class="btn btn-danger btn-sm">
+    Clear Shopping Cart
+  </button>
 </ng-container>
+<div>
+  <p>
+
+  </p>
+</div>
 
 

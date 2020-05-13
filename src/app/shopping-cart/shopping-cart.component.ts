@@ -10,7 +10,8 @@ export class ShoppingCartComponent implements OnInit {
 
   cart$;
   itemsArray: any[];
-  oneItem;
+  idArray: string[] = [];
+  price;
 
   constructor(private cartService: ShoppingCartService, private cdr: ChangeDetectorRef) { }
 
@@ -32,11 +33,40 @@ export class ShoppingCartComponent implements OnInit {
     this.cart$.forEach(x => {
       quantityToBeReturned += x.quantity;
       iA.push(x);
+      this.idArray.push(x.product.id)
     });
 
     this.itemsArray = iA;
 
     return quantityToBeReturned;
+  }
+
+  getTotalPrice() {
+    let p = 0;
+    this.itemsArray.forEach(x => {
+      p += (x.quantity * x.product.price);
+    })
+    return p;
+  }
+
+  addToCart(product) {
+    this.cartService.addToCart(product);
+  }
+
+  removeFromCart(product) {
+    this.cartService.removeFromCart(product)
+  }
+
+  clearCart() {
+    console.log('About to clear cart')
+    // console.log(this.idArray)
+    this.cartService.clearCart(this.idArray);
+  }
+
+  removeProductFromCart(id) {
+    console.log('About to remove product')
+    // console.log(this.idArray)
+    this.cartService.removeProduct(id);
   }
 
 }
