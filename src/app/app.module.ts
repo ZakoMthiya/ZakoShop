@@ -31,6 +31,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ShoppingCartService } from './shopping-cart.service';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { OrderService } from './order.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     AuthService,
     CategoryService,
     ProductService,
-    ShoppingCartService
+    ShoppingCartService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

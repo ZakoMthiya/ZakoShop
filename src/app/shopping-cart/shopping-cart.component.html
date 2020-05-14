@@ -1,70 +1,81 @@
 <h1>Shopping Cart</h1>
 
-<ng-container>
+<div class="row col-8">
   <p>
     You have {{ getQuantity() }} items in your shopping cart.
+    <button (click)="clearCart()" class="btn btn-light btn-sm">
+      Clear Shopping Cart
+    </button>
   </p>
   <table class="table">
     <thead>
       <tr>
+        <th></th>
         <th>Product</th>
         <th>Quantity</th>
-        <th></th>
+        <th class="text-right"></th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let item of itemsArray">
-        <td >
+
+      <tr *ngFor="let item of cart$">
+        <td>
+          <div [style.backgroundImage]="'url(' + item.product.imageUrl + ')'" class="myThumbnail"></div>
+        </td>
+
+        <td>
           {{ item.product.title }}
         </td>
-        <td>
-          <!-- {{ item.quantity }} -->
-          <!--  <div class="row no-gutters"> -->
 
-            <div *ngIf="item.quantity > 1; else noRemoveTask" class="col">
-              <button (click)="removeFromCart(item.product)" class="btn btn-danger btn-block">-</button>
-            </div>
-            <ng-template #noRemoveTask>
-              <div class="col">
-                <button (click)="removeProductFromCart(item.product.id)" class="btn btn-danger btn-block">-</button>
-              </div>
-            </ng-template>
-            <div class="col text-center">
-              {{ item.quantity }}
-            </div>
-            <div *ngIf="item.quantity < 5; else noAddTask" class="col">
-              <button (click)="addToCart(item.product)" class="btn btn-success btn-block">+</button>
-            </div>
-            <ng-template #noAddTask>
-              <div class="col">
-                <button class="btn btn-success disabled btn-block">-</button>
-              </div>
-            </ng-template>
-          <!-- </div> -->
-        </td>
         <td>
+          <div *ngIf="item.quantity > 1; else noRemoveTask" class="col">
+            <button (click)="removeFromCart(item.product)" class="btn btn-danger btn-block">-</button>
+          </div>
+          <ng-template #noRemoveTask>
+            <div class="col">
+              <button (click)="removeProductFromCart(item.product.id)" class="btn btn-danger btn-block">-</button>
+            </div>
+          </ng-template>
+          <div class="col text-center font-weight-bold">
+            {{ item.quantity }}
+          </div>
+          <div *ngIf="item.quantity < 5; else noAddTask" class="col">
+            <button (click)="addToCart(item.product)" class="btn btn-success btn-block">+</button>
+          </div>
+          <ng-template #noAddTask>
+            <div class="col">
+              <button class="btn btn-success disabled btn-block">-</button>
+            </div>
+          </ng-template>
+        </td>
+
+        <td class="text-right">
           {{ item.product.price * item.quantity | currency:'ZAR':"symbol" }}
         </td>
+
       </tr>
     </tbody>
+
     <tfoot>
       <tr>
         <th></th>
+        <th></th>
         <th>Total</th>
-        <th> {{ getTotalPrice() | currency:'ZAR':"symbol" }}</th>
+        <th class="text-right"> {{ getTotalPrice() | currency:'ZAR':"symbol" }}</th>
       </tr>
     </tfoot>
   </table>
-  <button
-  (click)="clearCart()"
-  class="btn btn-danger btn-sm">
-    Clear Shopping Cart
-  </button>
-</ng-container>
+
+  <a *ngIf="cart$"
+  routerLink="/check-out"
+  class="btn btn-primary">
+    Check Out
+  </a>
+
+</div>
 <div>
   <p>
 
   </p>
 </div>
-
-

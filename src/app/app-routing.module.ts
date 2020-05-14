@@ -10,6 +10,7 @@ import { ProductsComponent } from './products/products.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CheckOutComponent } from './check-out/check-out.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'add', component: CreateCustomerComponent },
   { path: 'login', component: LogInComponent },
   { path: 'my-orders', component: MyOrdersComponent },
+  { path: 'check-out', component: CheckOutComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'admin/products/new', component: ProductFormComponent },

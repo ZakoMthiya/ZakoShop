@@ -13,8 +13,8 @@ export class NavBarComponent implements OnInit {
 
   constructor(private cartService: ShoppingCartService) { }
 
-  ngOnInit() {
-    let cart$ = this.cartService.getCarti();
+  async ngOnInit() {
+    let cart$ = await this.cartService.getCarti();
     cart$.valueChanges().subscribe(cart => this.cart$ = cart)
   }
 

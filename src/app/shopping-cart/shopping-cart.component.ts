@@ -9,26 +9,26 @@ import { ShoppingCartService } from '../shopping-cart.service';
 export class ShoppingCartComponent implements OnInit {
 
   cart$;
-  itemsArray: any[];
   idArray: string[] = [];
   price;
 
   constructor(private cartService: ShoppingCartService, private cdr: ChangeDetectorRef) { }
 
-  ngOnInit() {
-    let cart$ = this.cartService.getCarti();
+  async ngOnInit() {
+    let cart$ = await this.cartService.getCarti();
     cart$.valueChanges().subscribe(cart => this.cart$ = cart);
   }
 
 
   getQuantity() {
+
     let quantityToBeReturned = 0;
     let iA = [];
 
     if(!this.cart$) {
       console.log('No cart');
       return quantityToBeReturned;
-    };
+    }
 
     this.cart$.forEach(x => {
       quantityToBeReturned += x.quantity;
@@ -36,14 +36,13 @@ export class ShoppingCartComponent implements OnInit {
       this.idArray.push(x.product.id)
     });
 
-    this.itemsArray = iA;
 
     return quantityToBeReturned;
   }
 
   getTotalPrice() {
     let p = 0;
-    this.itemsArray.forEach(x => {
+    this.cart$.forEach(x => {
       p += (x.quantity * x.product.price);
     })
     return p;

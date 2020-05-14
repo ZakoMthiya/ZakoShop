@@ -85,13 +85,14 @@ export class ShoppingCartService {
   }
 
   // Experiments
+
   getCartId() {
     let cartId = localStorage.getItem('cartId');
     if (cartId) return cartId;
   }
 
   // This returns an array of all the items in the cart
-  getCarti() {
+  async getCarti() {
     let cartId = this.getCartId();
     if(!cartId) {
       console.log('Failed to get cartId in service')
