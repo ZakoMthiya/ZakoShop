@@ -33,13 +33,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
           // console.log(id);
           return { id, ...data };
         });
-      })).subscribe(products => this.products = products);
+      })).subscribe(products => this.filteredProducts = this.products = products);
 
     route.queryParamMap.subscribe(params => {
       this.category = params.get('category');
-      this.filteredProducts = (this.category) ?
-        this.products.filter(p => p.category === this.category) :
-        this.products;
+      if(this.category) {
+        this.filteredProducts = this.products.filter(p => p.category === this.category)
+      }
+      else
+      this.filteredProducts = this.products
+      // this.filteredProducts = (this.category) ?
+      //   this.products.filter(p => p.category === this.category) :
+      //   this.products;
     });
   }
 
