@@ -4,6 +4,7 @@ import { map, take } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
 import { ProductService } from 'src/app/product.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-form',
@@ -13,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ProductFormComponent implements OnInit {
 
   categories$;
-  product = {};
+  product: { title, price, category, imageUrl };
   id;
 
   constructor(
@@ -23,7 +24,7 @@ export class ProductFormComponent implements OnInit {
     private router: Router) {
 
     this.id = this.route.snapshot.paramMap.get('id');
-    if(this.id) this.productService.getProduct(this.id).valueChanges().pipe(take(1)).subscribe(p => this.product = p);
+    if(this.id) this.productService.getProduct(this.id).valueChanges().pipe(take(1)).subscribe(p => this.product = p as Product);
 
     this.categories$ = categoryService.getCategories().snapshotChanges()
     .pipe(map(actions => {

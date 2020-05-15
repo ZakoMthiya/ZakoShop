@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { OrderService } from '../order.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-check-out',
@@ -14,21 +15,26 @@ export class CheckOutComponent implements OnInit, OnDestroy {
 
   shipping = {};
   cart$;
+  userId: string;
   idArray: string[] = [];
-  subscription: Subscription;
+  cartSubscription: Subscription;
+  userSubscription: Subscription;
 
   constructor(private cartService: ShoppingCartService,
     private orderService: OrderService,
+    private auth: AuthService,
     private router: Router) { }
 
   async ngOnInit() {
     let cart$ = await this.cartService.getCarti();
-    this.subscription = cart$.valueChanges().subscribe(cart => this.cart$ = cart);
+    this.cartSubscription = cart$.valueChanges().subscribe(cart => this.cart$ = cart);
 
+    this.userSubscription = this.auth.user$.subscribe(user => this.userId = user.uid);
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.cartSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   getQuantity() {
@@ -64,16 +70,9 @@ export class CheckOutComponent implements OnInit, OnDestroy {
       this.idArray.push(x.product.id)
 
     })
-    // let tempItems = [];
-    // this.cart$.forEach(x => {
-    //   let item = {
-    //     product: {
-    //       title:
-    //     },
-    //   };
-    // })
 
     let order = {
+      userId: this.userId,
       datePlaced: new Date().getTime(),
       shipping: this.shipping,
       items: this.cart$

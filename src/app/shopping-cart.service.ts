@@ -110,7 +110,8 @@ export class ShoppingCartService {
     // let ic = ['4edDXZtdJrtWqhTPQ9VS', '5tFTj2TlIMqKNHKLTk1U']
     id.forEach(x => {
       cart.doc(x).delete();
-    })
+    });
+    this.db.collection('/shopping-carts').doc(cartId).delete();
   }
 
   removeProduct(id: string) {

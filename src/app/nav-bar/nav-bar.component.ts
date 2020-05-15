@@ -14,11 +14,10 @@ export class NavBarComponent implements OnInit {
   shoppingCartItemCount: number;
   cart$;
   appUser: AppUser;
-  user: AppUser;
 
   constructor(private cartService: ShoppingCartService,
     public auth: AuthService) {
-      this.auth.appUser$.subscribe(user => this.user = this.appUser = user);
+      this.auth.appUser$.subscribe(user => this.appUser = user);
 
       console.log('constructor ran');
   }
