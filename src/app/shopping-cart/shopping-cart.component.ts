@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../shopping-cart.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -12,7 +13,8 @@ export class ShoppingCartComponent implements OnInit {
   idArray: string[] = [];
   price;
 
-  constructor(private cartService: ShoppingCartService, private cdr: ChangeDetectorRef) { }
+  constructor(private cartService: ShoppingCartService,
+    private afAuth: AngularFireAuth) { }
 
   async ngOnInit() {
     let cart$ = await this.cartService.getCarti();

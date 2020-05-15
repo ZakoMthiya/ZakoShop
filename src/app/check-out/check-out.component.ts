@@ -81,7 +81,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     console.log(order);
     this.orderService.storeOrder(order);
     this.cartService.clearCart(this.idArray);
-    // this.router.navigate(['/order-success']);
+    this.router.navigate(['/order-success']);
   }
 
 }
