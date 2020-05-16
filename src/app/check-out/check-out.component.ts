@@ -5,6 +5,7 @@ import { OrderService } from '../order.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AuthService } from '../shared/auth.service';
+import { Shipping } from '../models/shipping';
 
 @Component({
   selector: 'app-check-out',
@@ -13,8 +14,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class CheckOutComponent implements OnInit, OnDestroy {
 
-  shipping = {};
-  cart$;
+  shipping = {} as Shipping;
+  cart$: any[] = [];
   userId: string;
   idArray: string[] = [];
   cartSubscription: Subscription;

@@ -9,7 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  cart$;
+  cart$: any[] = [];
   idArray: string[] = [];
   price;
 
@@ -18,7 +18,8 @@ export class ShoppingCartComponent implements OnInit {
 
   async ngOnInit() {
     let cart$ = await this.cartService.getCarti();
-    cart$.valueChanges().subscribe(cart => this.cart$ = cart);
+    if (cart$)
+      cart$.valueChanges().subscribe(cart => this.cart$ = cart);
   }
 
 
@@ -27,7 +28,7 @@ export class ShoppingCartComponent implements OnInit {
     let quantityToBeReturned = 0;
     let iA = [];
 
-    if(!this.cart$) {
+    if (!this.cart$) {
       console.log('No cart');
       return quantityToBeReturned;
     }

@@ -44,7 +44,7 @@ export class ShoppingCartService {
     let cartId = await this.getOrCreateCartId();
     console.log(cartId);
 
-    let item$ = this.db.doc('shopping-carts/' + cartId + '/items/' + product.id).get()
+    let item$ = this.db.doc('shopping-carts/' + cartId + '/items/' + product.id).get();
     console.log(item$);
 
     item$.pipe(take(1)).subscribe(item => {
@@ -68,7 +68,7 @@ export class ShoppingCartService {
     let cartId = await this.getOrCreateCartId();
     console.log(cartId);
 
-    let item$ = this.db.doc('shopping-carts/' + cartId + '/items/' + product.id).get()
+    let item$ = this.db.doc('shopping-carts/' + cartId + '/items/' + product.id).get();
     console.log(item$);
 
     item$.pipe(take(1)).subscribe(item => {
@@ -95,7 +95,7 @@ export class ShoppingCartService {
   async getCarti() {
     let cartId = this.getCartId();
     if(!cartId) {
-      console.log('Failed to get cartId in service')
+      console.log('Failed to get cartId in service');
     }
     console.log('Got the cart Id in service');
     return this.db.collection('/shopping-carts/' + cartId + '/items/');
@@ -112,6 +112,8 @@ export class ShoppingCartService {
       cart.doc(x).delete();
     });
     this.db.collection('/shopping-carts').doc(cartId).delete();
+    localStorage.removeItem('cartId')
+
   }
 
   removeProduct(id: string) {
