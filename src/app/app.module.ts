@@ -10,9 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
-import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
-import { CustomersListComponent } from './customers/customers-list/customers-list.component';
-import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
@@ -40,9 +37,6 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerDetailsComponent,
-    CustomersListComponent,
-    CreateCustomerComponent,
     LogInComponent,
     DashboardComponent,
     ProductFormComponent,

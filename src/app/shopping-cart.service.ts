@@ -75,7 +75,11 @@ export class ShoppingCartService {
 
   // This returns an array of all the items in the cart
   async getCarti() {
-    let cartId = this.getCartId();
+    let cartId = await this.getOrCreateCartId();
+    return this.db.collection('/shopping-carts/' + cartId + '/items/');
+  }
+  async getCart() {
+    let cartId = await this.getOrCreateCartId();
     return this.db.collection('/shopping-carts/' + cartId + '/items/');
   }
 
