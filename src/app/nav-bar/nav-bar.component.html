@@ -32,9 +32,6 @@
           <a class="dropdown-item" routerLink="/my-orders">My Orders</a>
           <a *ngIf="appUser.isAdmin" class="dropdown-item" routerLink="/admin/orders">Admin Orders</a>
           <a *ngIf="appUser.isAdmin" class="dropdown-item" routerLink="/admin/products">Admin Products</a>
-          <ng-template *ngIf="appUser.isAdmin">
-
-          </ng-template>
           <a class="dropdown-item" (click)="logOut()">Logout</a>
         </div>
       </li>

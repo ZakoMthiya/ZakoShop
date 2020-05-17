@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ShoppingCart } from './models/shopping-cart';
-import { async } from '@angular/core/testing';
 import { Product } from './models/product';
-import { take, map } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +22,6 @@ export class ShoppingCartService {
     })
   }
 
-  private getCart(cartId: string) {
-    return this.cartRef + '/' + cartId;
-  }
-
   private async getOrCreateCartId() {
     let cartId = localStorage.getItem('cartId');
     if (cartId) return cartId;
@@ -38,45 +31,34 @@ export class ShoppingCartService {
     return result.id;
   }
 
+  async getItemInCart(id) {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.doc('shopping-carts/' + cartId + '/items/' + id).get();
+  }
+
   async addToCart(product: Product) {
 
-    console.log(product.id);
-    let cartId = await this.getOrCreateCartId();
-    console.log(cartId);
-
-    let item$ = this.db.doc('shopping-carts/' + cartId + '/items/' + product.id).get();
-    console.log(item$);
+    let item$ = await this.getItemInCart(product.id);
 
     item$.pipe(take(1)).subscribe(item => {
       if (item.exists) {
         let quantity = item.get('quantity');
         item.ref.set({ product: product, quantity: quantity + 1 });
-        console.log(quantity);
-        console.log(item$);
       }
       else {
         item.ref.set({ product: product, quantity: 1 })
-        console.log('Tried setting');
-        console.log(item)
       }
     })
   }
 
   async removeFromCart(product: Product) {
 
-    console.log(product.id);
-    let cartId = await this.getOrCreateCartId();
-    console.log(cartId);
-
-    let item$ = this.db.doc('shopping-carts/' + cartId + '/items/' + product.id).get();
-    console.log(item$);
+    let item$ = await this.getItemInCart(product.id);
 
     item$.pipe(take(1)).subscribe(item => {
       if (item.exists) {
         let quantity = item.get('quantity');
         item.ref.set({ product: product, quantity: quantity - 1 });
-        console.log(quantity);
-        console.log(item$);
       }
       else {
         console.log('This will never get triggered');
@@ -94,41 +76,17 @@ export class ShoppingCartService {
   // This returns an array of all the items in the cart
   async getCarti() {
     let cartId = this.getCartId();
-    if(!cartId) {
-      console.log('Failed to get cartId in service');
-    }
-    console.log('Got the cart Id in service');
     return this.db.collection('/shopping-carts/' + cartId + '/items/');
   }
 
-  clearCart(id: string[]) {
+  async clearCart(id: string[]) {
     let cartId = this.getCartId();
-    let cart = this.db.collection('/shopping-carts/' + cartId  + '/items/');
-    // Works
-    //cart.doc('4edDXZtdJrtWqhTPQ9VS').delete()
-    //console.log('Attempt')
-    // let ic = ['4edDXZtdJrtWqhTPQ9VS', '5tFTj2TlIMqKNHKLTk1U']
+    let cart = await this.getCarti();
+
     id.forEach(x => {
       cart.doc(x).delete();
     });
     this.db.collection('/shopping-carts').doc(cartId).delete();
     localStorage.removeItem('cartId')
-
-  }
-
-  removeProduct(id: string) {
-    let cartId = this.getCartId();
-    let cart = this.db.collection('/shopping-carts/' + cartId  + '/items/');
-
-    cart.doc(id).delete();
   }
 }
-
-// Seems to be working ovetime. Always deleting
-
-// cart.ref.onSnapshot(x => {
-//   console.log(x)
-//   x.docs.forEach(i => {
-//     i.ref.delete();
-//   })
-// })

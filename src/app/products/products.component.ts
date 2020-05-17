@@ -16,7 +16,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   filteredProducts: Product[] = [];
   category: string;
-  cart: any;
+  cart: any[] = [];
   subscribtion: Subscription;
 
   constructor(

@@ -64,11 +64,4 @@ export class ShoppingCartComponent implements OnInit {
     // console.log(this.idArray)
     this.cartService.clearCart(this.idArray);
   }
-
-  removeProductFromCart(id) {
-    console.log('About to remove product')
-    // console.log(this.idArray)
-    this.cartService.removeProduct(id);
-  }
-
 }

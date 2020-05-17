@@ -18,12 +18,17 @@ export class OrderService {
   }
 
   getAllUserOrders(userId: string) {
-    let i = this.db.collection('/orders', ref => {
-      let query = ref;
-      query.where('userId', '==', userId)
-      return query;
-    }).valueChanges();
-    console.log(i);
+    let i = this.db.collection('/orders', query =>  query.where('userId', '==', userId)).valueChanges();
     return i;
   }
 }
+//
+// Dont work
+//
+// let i = this.db.collection('/orders', ref => {
+//   let query = ref;
+//   query.where('userId', '==', userId)
+//   return query;
+// }).valueChanges();
+// console.log(i);
+// return i;

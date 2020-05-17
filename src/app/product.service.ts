@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Category } from './models/category';
 import { Product } from './models/product';
 
 @Injectable({
