@@ -43,14 +43,11 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     let quantityToBeReturned = 0;
 
     if (!this.cart$) {
-      console.log('No cart');
       return quantityToBeReturned;
     }
     else
       this.cart$.forEach(x => {
         quantityToBeReturned += x.quantity;
-        console.log('Adding one product from the cart')
-
       });
 
     return quantityToBeReturned;
@@ -58,18 +55,17 @@ export class CheckOutComponent implements OnInit, OnDestroy {
 
   getTotalPrice() {
     let p = 0;
+
     this.cart$.forEach(x => {
       p += (x.quantity * x.product.price);
     })
-    console.log('After price')
+
     return p;
   }
 
   placeOrder() {
-    console.log(this.shipping);
     this.cart$.forEach(x => {
       this.idArray.push(x.product.id)
-
     })
 
     let order = {
@@ -78,7 +74,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
       shipping: this.shipping,
       items: this.cart$
     }
-    console.log(order);
+
     this.orderService.storeOrder(order);
     this.cartService.clearCart(this.idArray);
     this.router.navigate(['/order-success']);

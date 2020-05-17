@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../shopping-cart.service';
-import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -11,10 +10,9 @@ export class ShoppingCartComponent implements OnInit {
 
   cart$: any[] = [];
   idArray: string[] = [];
-  price;
+  price: any;
 
-  constructor(private cartService: ShoppingCartService,
-    private afAuth: AngularFireAuth) { }
+  constructor(private cartService: ShoppingCartService) { }
 
   async ngOnInit() {
     let cart$ = await this.cartService.getCarti();
@@ -24,21 +22,16 @@ export class ShoppingCartComponent implements OnInit {
 
 
   getQuantity() {
-
     let quantityToBeReturned = 0;
-    let iA = [];
 
     if (!this.cart$) {
-      console.log('No cart');
       return quantityToBeReturned;
     }
 
     this.cart$.forEach(x => {
       quantityToBeReturned += x.quantity;
-      iA.push(x);
       this.idArray.push(x.product.id)
     });
-
 
     return quantityToBeReturned;
   }
@@ -60,8 +53,10 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   clearCart() {
-    console.log('About to clear cart')
-    // console.log(this.idArray)
     this.cartService.clearCart(this.idArray);
+  }
+
+  removeProductFromCart(id) {
+    this.cartService.removeProduct(id);
   }
 }

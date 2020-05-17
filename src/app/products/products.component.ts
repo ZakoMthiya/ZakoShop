@@ -29,8 +29,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         return actions.map(a => {
           let data = a.payload.doc.data() as Product;
           let id = a.payload.doc.id;
-          // console.log(data);
-          // console.log(id);
           return { id, ...data };
         });
       })).subscribe(products => this.filteredProducts = this.products = products);
@@ -42,17 +40,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
       else
       this.filteredProducts = this.products
-      // this.filteredProducts = (this.category) ?
-      //   this.products.filter(p => p.category === this.category) :
-      //   this.products;
     });
   }
 
   async ngOnInit() {
-    console.log('About to get cart');
     this.subscribtion = (await (this.cartService.getCarti()))
       .valueChanges().subscribe(cart => this.cart = cart);
-    console.log(this.cart);
   }
 
   ngOnDestroy() {

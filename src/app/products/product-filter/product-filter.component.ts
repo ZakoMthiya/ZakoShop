@@ -19,8 +19,6 @@ export class ProductFilterComponent implements OnInit {
         return actions.map(a => {
           let data = a.payload.doc.data() as Category;
           let id = a.payload.doc.id;
-          // console.log(data);
-          // console.log(id);
           return { id, ...data };
         });
       }))

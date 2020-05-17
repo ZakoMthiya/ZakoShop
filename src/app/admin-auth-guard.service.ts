@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { AuthService } from './shared/auth.service';
-import { map, switchMap } from 'rxjs/operators';
-import { UserService } from './user.service';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,9 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminAuthGuardService implements CanActivate {
 
-  constructor(private auth: AuthService,
-    private router: Router,
-    private userService: UserService) { }
+  constructor(private auth: AuthService) { }
 
   canActivate() : Observable<boolean> {
     return this.auth.appUser$

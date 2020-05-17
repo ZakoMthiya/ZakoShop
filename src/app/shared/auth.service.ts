@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User, auth } from 'firebase';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -24,7 +24,6 @@ export class AuthService {
     this.user$ = this.afAuth.authState;
 
   }
-
 
   // Firebase Google Sign-in
   SigninWithGoogle() {
@@ -55,7 +54,6 @@ export class AuthService {
   get appUser$() : Observable<AppUser> {
     return this.user$.pipe(switchMap(user => {
       if(user) return this.userService.getUser(user.uid).valueChanges();
-      console.log(user);
       return of(null);
       }
     ))

@@ -40,5 +40,9 @@ export class ProductCardComponent implements OnInit {
 
     return quantityToBeReturned;
   }
+
+  removeProductFromCart(id) {
+    this.cartService.removeProduct(id);
+  }
 }
 

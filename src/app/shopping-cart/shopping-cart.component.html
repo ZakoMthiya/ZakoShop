@@ -3,9 +3,9 @@
 <div class="row col-8">
   <p>
     You have {{ getQuantity() }} items in your shopping cart.
-    <button (click)="clearCart()" class="btn btn-light btn-sm">
+    <!-- <button (click)="clearCart()" class="btn btn-light btn-sm">
       Clear Shopping Cart
-    </button>
+    </button> -->
   </p>
   <table class="table">
     <thead>
@@ -67,7 +67,7 @@
     </tfoot>
   </table>
 
-  <a *ngIf="cart$"
+  <a *ngIf="idArray"
   routerLink="/check-out"
   class="btn btn-primary">
     Check Out

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { CustomersListComponent } from './customers/customers-list/customers-list.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { LogInComponent } from './components/log-in/log-in.component';
@@ -12,6 +13,7 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
+
 import { AuthGuardService } from './auth-guard.service';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
 
@@ -23,9 +25,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
 
   { path: 'login', component: LogInComponent },
+  { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuardService] },
   { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuardService] },
-  { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuardService] },
 
   { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },

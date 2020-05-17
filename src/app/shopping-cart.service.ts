@@ -89,4 +89,17 @@ export class ShoppingCartService {
     this.db.collection('/shopping-carts').doc(cartId).delete();
     localStorage.removeItem('cartId')
   }
+  // removeProduct
+  removeProduct(id: string) {
+    let cartId = this.getCartId();
+    let cart = this.db.collection('/shopping-carts/' + cartId  + '/items/');
+
+    cart.doc(id).delete();
+  }
+
+  async deleteCart() {
+    let cartId = this.getCartId();
+    this.db.collection('/shopping-carts').doc(cartId).delete();
+    localStorage.removeItem('cartId');
+  }
 }

@@ -21,8 +21,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       return actions.map(a => {
         let data = a.payload.doc.data() as Product;
         let id = a.payload.doc.id;
-        // console.log(data);
-        // console.log(id);
         return {id, ...data};
       });
     })).subscribe(products => this.filteredProducts = this.products = products);
@@ -32,7 +30,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   filter(query: string) {
-    console.log(query);
+
     this.filteredProducts = (query) ?
     this.products.filter(p => p.title.toLowerCase().includes(query.toLowerCase())) :
     this.products;

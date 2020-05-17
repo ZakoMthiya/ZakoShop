@@ -19,8 +19,8 @@ export class MyOrdersComponent implements OnInit {
       console.log(u.uid)
       return this.ordersService.getAllUserOrders(u.uid)
     }));
-    console.log(this.orders$)
   }
+
   ngOnInit() {
   }
 
