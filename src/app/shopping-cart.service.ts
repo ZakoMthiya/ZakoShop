@@ -68,16 +68,34 @@ export class ShoppingCartService {
 
   // Experiments
 
+  getTotalPrice(cart: any[]) {
+    let p = 0;
+
+    cart.forEach(x => {
+      p += (x.quantity * x.product.price);
+    })
+
+    return p;
+  }
+
+  getItemCount(cart: any[]) {
+    let quantity = 0;
+
+    if(cart) {
+      cart.forEach(x => {
+        quantity += x.quantity;
+      })
+    }
+    return quantity;
+  }
+
   getCartId() {
     let cartId = localStorage.getItem('cartId');
     if (cartId) return cartId;
   }
 
   // This returns an array of all the items in the cart
-  async getCarti() {
-    let cartId = await this.getOrCreateCartId();
-    return this.db.collection('/shopping-carts/' + cartId + '/items/');
-  }
+
   async getCart() {
     let cartId = await this.getOrCreateCartId();
     return this.db.collection('/shopping-carts/' + cartId + '/items/');
@@ -85,7 +103,7 @@ export class ShoppingCartService {
 
   async clearCart(id: string[]) {
     let cartId = this.getCartId();
-    let cart = await this.getCarti();
+    let cart = await this.getCart();
 
     id.forEach(x => {
       cart.doc(x).delete();
@@ -96,7 +114,7 @@ export class ShoppingCartService {
   // removeProduct
   removeProduct(id: string) {
     let cartId = this.getCartId();
-    let cart = this.db.collection('/shopping-carts/' + cartId  + '/items/');
+    let cart = this.db.collection('/shopping-carts/' + cartId + '/items/');
 
     cart.doc(id).delete();
   }

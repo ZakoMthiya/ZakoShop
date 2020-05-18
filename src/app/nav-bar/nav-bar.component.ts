@@ -19,14 +19,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
     public auth: AuthService) {
       this.auth.appUser$.subscribe(user => this.appUser = user);
       this.auth.user$.subscribe(user => this.user = user);
-      console.log(this.user);
   }
 
   async ngOnInit() {
     let cart$ = await this.cartService.getCart();
     cart$.valueChanges().subscribe(cart => this.cart$ = cart);
-    // this.user = this.auth.getUser();
-
   }
 
   logOut() {
@@ -39,20 +36,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   getQuantity() {
-    let quantityToBeReturned = 0;
-
-    if (!this.cart$) {
-      console.log('No cart');
-      return quantityToBeReturned;
-    };
-
-    this.cart$.forEach(x => {
-      quantityToBeReturned += x.quantity;
-    });
-
-        //  this.user = localStorage.getItem('user');
-      // console.log(this.user.email);
-    return quantityToBeReturned;
+    return this.cartService.getItemCount(this.cart$);
   }
 
 }

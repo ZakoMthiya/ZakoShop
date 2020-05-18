@@ -15,33 +15,18 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private cartService: ShoppingCartService) { }
 
   async ngOnInit() {
-    let cart$ = await this.cartService.getCarti();
+    let cart$ = await this.cartService.getCart();
     if (cart$)
       cart$.valueChanges().subscribe(cart => this.cart$ = cart);
   }
 
 
   getQuantity() {
-    let quantityToBeReturned = 0;
-
-    if (!this.cart$) {
-      return quantityToBeReturned;
-    }
-
-    this.cart$.forEach(x => {
-      quantityToBeReturned += x.quantity;
-      this.idArray.push(x.product.id)
-    });
-
-    return quantityToBeReturned;
+    return this.cartService.getItemCount(this.cart$);
   }
 
   getTotalPrice() {
-    let p = 0;
-    this.cart$.forEach(x => {
-      p += (x.quantity * x.product.price);
-    })
-    return p;
+    return this.cartService.getTotalPrice(this.cart$);
   }
 
   addToCart(product) {
@@ -53,6 +38,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   clearCart() {
+    this.cart$.forEach(x => {
+      this.idArray.push(x.product.id)
+    });
     this.cartService.clearCart(this.idArray);
   }
 
@@ -60,3 +48,4 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.removeProduct(id);
   }
 }
+//

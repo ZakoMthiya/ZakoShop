@@ -41,38 +41,6 @@ export class AuthService {
   }
 // Exeriments
 
-  getUser() {
-    let uu = localStorage.getItem('user');
-    if(uu == null) return;
-
-    let u =  JSON.parse(uu);
-
-    let user = {
-      uid: u.uid,
-      email: u.email,
-      displayName: u.displayName,
-      photoURL: u.photoURL,
-      emailVerified: u.emailVerified
-
-    }
-    return user;
-  }
-
-  // get Auser$() : Observable<{}> {
-
-  //   let s;
-  //   this.user$(user => {
-  //     if(user) {
-  //       s = user;
-  //     }
-  //   })
-
-  //   return s;
-  // }
-
-
-
-
   SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData = {
@@ -87,11 +55,6 @@ export class AuthService {
     })
   }
 
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
-  }
-
   // Firebase Google Sign-in
   SigninWithGoogle() {
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
@@ -99,7 +62,6 @@ export class AuthService {
 
     return this.afAuth.signInWithPopup(new auth.GoogleAuthProvider())
       .then(res => {
-        console.log('Successfully logged in!');
         this.SetUserData(res.user);
         this.userService.saveUser(res.user);
         let returnUrl = localStorage.getItem('returnUrl');
@@ -113,7 +75,6 @@ export class AuthService {
   // Firebase Logout
   SignOut() {
     return this.afAuth.signOut().then(() => {
-      console.log('Signed out');
       this.router.navigateByUrl('/login', { skipLocationChange: true });
       this.router.navigate(["/"]);
     })

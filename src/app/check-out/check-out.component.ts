@@ -27,7 +27,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   async ngOnInit() {
-    let cart$ = await this.cartService.getCarti();
+    let cart$ = await this.cartService.getCart();
     this.cartSubscription = cart$.valueChanges().subscribe(cart => this.cart$ = cart);
 
     this.userSubscription = this.auth.user$.subscribe(user => this.userId = user.uid);
@@ -39,28 +39,11 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   }
 
   getQuantity() {
-
-    let quantityToBeReturned = 0;
-
-    if (!this.cart$) {
-      return quantityToBeReturned;
-    }
-    else
-      this.cart$.forEach(x => {
-        quantityToBeReturned += x.quantity;
-      });
-
-    return quantityToBeReturned;
+   return this.cartService.getItemCount(this.cart$);
   }
 
   getTotalPrice() {
-    let p = 0;
-
-    this.cart$.forEach(x => {
-      p += (x.quantity * x.product.price);
-    })
-
-    return p;
+    return this.cartService.getTotalPrice(this.cart$);
   }
 
   placeOrder() {
